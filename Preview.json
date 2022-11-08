@@ -180,7 +180,7 @@
                       "traceId": "56ed4096-f96a-4944-8881-05468efe0ec9",
                       "type": "validation",
                       "code": "audience-invalid",
-                      "instance": "/audience/314159",
+                      "instance": "/audience/314160",
                       "title": "Audience is invalid",
                       "detail": "Audience is not found, please choose a valid audience"
                     }
@@ -271,7 +271,7 @@
         }
       ]
     },
-    "/preview/audiences/{audience-id}/contactlist-attributes": {
+    "/preview/audiences/{audience-id}/contactlist-attribute": {
       "patch": {
         "tags": [
           "Audience"
