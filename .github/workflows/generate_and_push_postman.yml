@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
       
       - name: Install Postman dependencies
         run:  npm -g install postmanto2api
