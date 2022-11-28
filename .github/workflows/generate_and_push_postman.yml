@@ -1,0 +1,39 @@
+name: Generate And Push Postman Collections
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Postman dependencies
+        run:  npm -g install postmanto2api
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+  
+      - name: Setup SSH Agent for git operations
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+            ssh-private-key: ${{ secrets.PYTHON_SDK_REPO_PRIVATE_KEY }}
+
+      - name: Generate Postman Collections
+        run: ./openapi2postmanv2 -s Preview.json  -o Preview_collection.json -p -O folderStrategy=Tags,requestParametersResolution=Schema,responseParametersResolution=Schema,optimizeConversion=false,stackLimit=50
+
+        shell: bash
+
+
+      - name: Push Postman collections
+        run: python ./test.py --language python
+        shell: bash
