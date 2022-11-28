@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@main
       
       - name: Install Postman dependencies
-        run:  npm -g install postmanto2api
+        run:  npm i -g openapi-to-postmanv2
 
       - name: Set up Python
         uses: actions/setup-python@v2
