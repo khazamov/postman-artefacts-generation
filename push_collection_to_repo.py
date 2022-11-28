@@ -4,6 +4,9 @@ import logging
 import json
 import pdb 
 from requests.auth import HTTPBasicAuth
+import os
+from os import path
+import sys
 
 logging.basicConfig()
 logging.getLogger().setLevel(logging.DEBUG)
@@ -14,15 +17,16 @@ requests_log.propagate = True
 
 VERSIONS_FOR_UPDATE=['preview']
 UPDATE_URL = 'https://api.getpostman.com/collections/12547236-cb03ba15-66d1-4d68-b9aa-f07b2b06a653'
-API_KEY = 'PMAK-636d33b8b11a1127f78b6af5-753d32c2da46d48fccb1c94c891941a97b'
+API_KEY = os.getenv('POSTMAN_MANAGEMENT')
 
 
-# p = subprocess.Popen("openapi2postmanv2 -s 2021-07___oas.json  -o postman_2021-07.json -p -O folderStrategy=Tags,requestParametersResolution=Schema,responseParametersResolution=Schema,optimizeConversion=false,stackLimit=50", stdout=subprocess.PIPE, shell=True)
+##
 
+# if !path.exists('postman_2021-07.json'):
+# 	sys.exit("Collection file does not exist.")
 
-# with open('postman_2021-07.json', encoding="utf-8") as f:
-#     read_collection_data = f.read()
-
+with open('postman_2021-07.json', encoding="utf-8") as f:
+    read_collection_data = f.read()
 
 
 header = {
