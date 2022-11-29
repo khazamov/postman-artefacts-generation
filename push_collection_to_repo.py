@@ -1,5 +1,4 @@
 import requests
-import subprocess
 import logging
 import json
 import pdb 
@@ -45,9 +44,6 @@ JSON_collection_wrapper = json.dumps(collection_wrapper)
 
 
 #pdb.set_trace()
-
-
-
 
 
 response=requests.put(UPDATE_URL, headers=header, data=JSON_collection_wrapper)
