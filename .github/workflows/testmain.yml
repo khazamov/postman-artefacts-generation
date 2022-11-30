@@ -1,0 +1,23 @@
+name: Generate  Postman Collections
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@main
+      
+      - name: Install Postman dependencies
+        run:  npm i -g openapi-to-postmanv2
+
+      - name: Generate Postman Collections
+        run: ./convert_to_postman_spec.sh
+        shell: bash
