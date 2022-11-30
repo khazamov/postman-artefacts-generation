@@ -13,7 +13,6 @@ import sys
 
 API_KEY = os.getenv('POSTMAN_MANAGEMENT')
 workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
-#workspaceId = 'cc613565-3e41-4ac5-b5b5-747ee5646978'
 ROOT_SPECS_DIR='.'
 GET_ALL_WORKSPACE_URL = f'https://api.getpostman.com/collections?workspace={workspaceId}'
 COLLECTIONS_UPDATE_URL = 'https://api.getpostman.com/collections/%s'
@@ -39,7 +38,7 @@ if DEBUG:
 def get_workspace_data():
 	workspace_response = requests.get(GET_ALL_WORKSPACE_URL, headers=HEADER)
 	if workspace_response.status_code != 200:
-		Throw("Could not fetch Postman collections")
+		raise requests.exceptions.HTTPError("Could not fetch Postman collections")
 	workspace_response_json = workspace_response.json()
 	return workspace_response_json
 
@@ -90,7 +89,7 @@ def main():
 			collection_name_to_update = f'{solutions_naming_map[solution]} {version}'
 			collection_id_to_update_list = [collection['uid'] for collection in workspace_response_json['collections'] if collection['name'].upper() == collection_name_to_update.upper()]
 			if len(collection_id_to_update_list) > 1:
-				raise ("More than 1 collection with the identical name. Please make sure collection names are unique")
+				raise ValueError("More than 1 collection with the identical name. Please make sure collection names are unique")
 			elif len(collection_id_to_update_list) == 0:
 				create_flag = True
 			else:
