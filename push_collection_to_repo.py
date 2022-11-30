@@ -103,10 +103,14 @@ def main():
 	    print("File manipulation error:", err)
 	except requests.exceptions.ConnectionError as err:
 		print("Requests failure: e.g. DNS failure, refused connection", err)
+		sys.exit(0)
 	except requests.exceptions.HTTPError as err:
 		print("Invalid HTTP response", err)
+		sys.exit(0)
 	except Exception as e:
 	    print("Generic error or a network error:", err)
+	    sys.exit(0)
+
 
 
 if __name__ == '__main__':
