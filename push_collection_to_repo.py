@@ -12,8 +12,7 @@ import sys
 #constants
 
 API_KEY = os.getenv('POSTMAN_MANAGEMENT')
-workspaceId = 'cc613565-3e41-4ac5-b5b5-747ee5646978'
-#workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
+workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
 ROOT_SPECS_DIR='.'
 GET_ALL_WORKSPACE_URL = f'https://api.getpostman.com/collections?workspace={workspaceId}'
 COLLECTIONS_UPDATE_URL = 'https://api.getpostman.com/collections/%s'
@@ -81,13 +80,15 @@ def main():
 
 		# not sure if renaming existing Postman collection will cause broken forks
 		solutions_naming_map = dict({"marketingsolutions":"MS API", "retailmedia":"RM API"})
-		specification_files = [f for f in os.listdir(ROOT_SPECS_DIR) if os.path.isfile(f'{ROOT_SPECS_DIR}/{f}')]
+		specification_files = [f for f in os.listdir(ROOT_SPECS_DIR) if os.path.isfile(f'{ROOT_SPECS_DIR}/{f}') and f'{ROOT_SPECS_DIR}/{f}'.endswith('json')]
 
 
 		for file in specification_files:
 			create_flag = False
+			print(file)
 			solution, version = file.split('.')[0].split('_')
 			collection_name_to_update = f'{solutions_naming_map[solution]} {version}'
+			print(collection_name_to_update)
 			collection_id_to_update_list = [collection['uid'] for collection in workspace_response_json['collections'] if collection['name'].upper() == collection_name_to_update.upper()]
 			if len(collection_id_to_update_list) > 1:
 				raise ValueError("More than 1 collection with the identical name. Please make sure collection names are unique")
