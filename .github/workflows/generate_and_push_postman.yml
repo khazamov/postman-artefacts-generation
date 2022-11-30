@@ -29,7 +29,7 @@ jobs:
           pip install requests
 
       - name: Generate Postman Collections
-        run: convert_to_postman_spec.sh
+        run: ./convert_to_postman_spec.sh
         shell: bash
 
 
