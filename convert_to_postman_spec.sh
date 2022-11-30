@@ -1,4 +1,4 @@
-rm -f api-postman-specifications/* && mkdir api-postman-specifications
+rm -f api-postman-specifications/*
 
 for file in api-specifications/*
 do
