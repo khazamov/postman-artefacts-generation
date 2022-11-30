@@ -85,7 +85,7 @@ def main():
 
 		for file in specification_files:
 			create_flag = False
-			print(file)
+			print('Updating/Creating collection: '+file)
 			solution, version = file.split('.')[0].split('_')
 			collection_name_to_update = f'{solutions_naming_map[solution]} {version}'
 			print(collection_name_to_update)
