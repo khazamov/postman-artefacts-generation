@@ -102,6 +102,7 @@ def main():
 
 	except OSError as err:
 	    print("File manipulation error:", err)
+	    sys.exit(0)
 	except requests.exceptions.ConnectionError as err:
 		print("Requests failure: e.g. DNS failure, refused connection", err)
 		sys.exit(0)
