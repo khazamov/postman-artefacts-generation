@@ -14,7 +14,7 @@ import sys
 API_KEY = os.getenv('POSTMAN_MANAGEMENT')
 workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
 #workspaceId = 'cc613565-3e41-4ac5-b5b5-747ee5646978'
-ROOT_SPECS_DIR='api-postman-specifications'
+ROOT_SPECS_DIR='.'
 GET_ALL_WORKSPACE_URL = f'https://api.getpostman.com/collections?workspace={workspaceId}'
 COLLECTIONS_UPDATE_URL = 'https://api.getpostman.com/collections/%s'
 COLLECTIONS_CREATE_URL = f'https://api.getpostman.com/collections?workspace={workspaceId}'
