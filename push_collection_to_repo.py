@@ -7,12 +7,21 @@ import os
 from os import path
 import sys
 
-
+DEBUG = 1
+IS_PROD = int(os.getenv('IS_PROD'))
 
 #constants
 
 API_KEY = os.getenv('POSTMAN_MANAGEMENT')
-workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
+
+if (IS_PROD):
+	workspaceId = os.getenv('POSTMAN_WORKSPACE_ID')
+else:
+	workspaceId = os.getenv('POSTMAN_PREPROD_WORKSPACE_ID')
+
+if workspaceId is None:
+	raise ValueError("No active workspace is defined")
+
 ROOT_SPECS_DIR='.'
 GET_ALL_WORKSPACE_URL = f'https://api.getpostman.com/collections?workspace={workspaceId}'
 COLLECTIONS_UPDATE_URL = 'https://api.getpostman.com/collections/%s'
@@ -22,7 +31,6 @@ HEADER = {
 	'X-API-Key': API_KEY
 }
 
-DEBUG = 1
 
 if DEBUG:
 	logging.basicConfig()

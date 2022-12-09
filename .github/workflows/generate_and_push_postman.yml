@@ -32,10 +32,37 @@ jobs:
         run: ./convert_to_postman_spec.sh
         shell: bash
 
-
       - name: Push Postman collections
         run: python ./push_collection_to_repo.py --language python
         env:
           POSTMAN_MANAGEMENT: ${{ secrets.POSTMAN_MANAGEMENT }}
           POSTMAN_WORKSPACE_ID: ${{ secrets.POSTMAN_WORKSPACE_ID }}
+          POSTMAN_PREPROD_WORKSPACE_ID: ${{ secrets.POSTMAN_PREPROD_WORKSPACE_ID }}
+          IS_PROD: 0
         shell: bash
+
+      # not sure where {{ secrets.SLACK_WEBHOOK }} is defined in Criteo repo
+      # to be merged later with api-spec push unification
+
+      # - name: Send success notification
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_CHANNEL: criteo-api-sdk-generator
+      #     SLACK_COLOR: ${{ job.status }}
+      #     SLACK_MESSAGE: Postman Collection publishing success <https://www.postman.com/realcriteo|Link to the collections>. If the environment is not prod please check the private collection.
+      #     SLACK_USERNAME: sdk-generation-bot
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     SLACK_FOOTER: ''
+      #     SLACK_ICON_EMOJI: green_check_mark
+
+      # - name: Send failure notification
+      #   if: ${{ failure() }}
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_CHANNEL: criteo-api-sdk-generator
+      #     SLACK_COLOR: ${{ job.status }}
+      #     SLACK_MESSAGE: Python sdk publish failed. 
+      #     SLACK_USERNAME: sdk-generation-bot
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     SLACK_FOOTER: ''
+      #     SLACK_ICON_EMOJI: x
